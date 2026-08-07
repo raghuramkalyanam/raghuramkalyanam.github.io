@@ -636,7 +636,7 @@
     <div class="rail-inner">
       <div class="rail-mark">Portfolio<br />AI Engineering</div>
       <nav class="rail-nav" id="nav">
-        <a href="#overview">Overview</a>
+        <a href="#overview">Profile</a>
         <a href="#sovereign">Sovereign AI Platform</a>
         <a href="#internal">Internal Staff Assistant</a>
         <a href="#public">Public Chatbot Security</a>
@@ -663,13 +663,10 @@
     <div class="masthead band">
       <p class="eyebrow">Senior Data Scientist / AI Engineer · Zurich</p>
       <h1>Raghuram Kalyanam</h1>
-      <p class="standfirst">
-        I build AI assistants that organisations can actually put in front of staff and
-        the public — and I prove they work with numbers rather than demos.
-      </p>
       <div class="facts">
-        <span>13 years professional</span>
-        <span>10 years ML &amp; AI</span>
+        <span>14 years professional</span>
+        <span>11 years ML &amp; AI</span>
+        <span>M.Sc. Mathematics &amp; Computing</span>
         <span>German citizen</span>
         <span>English fluent · German C1</span>
       </div>
@@ -683,39 +680,23 @@
           <a class="cv-dl" href="cv/resume_raghuram_kalyanam.pdf" download hreflang="en">English</a>
           <a class="cv-dl" href="cv/lebenslauf_raghuram_kalyanam.pdf" download hreflang="de">Deutsch</a>
         </span>
-        <span class="hint" id="viewhint">Headlines and results &mdash; switch to Full for the detail</span>
+        <span class="hint" id="viewhint">Switch to Full for the detail</span>
       </div>
     </div>
 
     <!-- ══════════ OVERVIEW ══════════ -->
 
     <section id="overview" class="band rv">
-      <h2>What this page is</h2>
       <p class="lede">
-        A plain-language record of the three production AI systems I delivered at ELCA
-        Informatique in Zurich between October 2025 and today, written so that a recruiter
-        can read it end to end without a technical background. Every number on this page
-        came from a measurement, not an estimate.<span data-full> Where an engineer wants the
-        mechanism, each project carries a collapsible <strong>Technical detail</strong>
-        section.</span>
-      </p>
-
-      <h3>The short version</h3>
-      <div class="metrics">
-        <div class="metric"><span class="fig">3</span><span class="cap">AI systems taken to production</span></div>
-        <div class="metric"><span class="fig">26&times;</span><span class="cap">Cost per request cut on the flagship assistant</span></div>
-        <div class="metric"><span class="fig">6&times;</span><span class="cap">Faster answers after re-architecting search</span></div>
-        <div class="metric"><span class="fig">177</span><span class="cap">Automated security tests written</span></div>
-        <div class="metric"><span class="fig">2,110</span><span class="cap">Screenshots made searchable without an image model</span></div>
-      </div>
-
-      <p>
-        The common thread across all three: these are systems where a wrong answer has a
-        real cost. One handles government documents classified <em>confidential</em> and
-        <em>secret</em>. One is used by call-centre staff who quote its answers to the
-        public. One is open to anyone on the internet. So most of my work went into the
-        unglamorous half of AI engineering — making the system retrieve the right source,
-        refuse honestly when it doesn't know, and prove both with repeatable measurements.
+        I work on LLM-based systems: RAG pipelines, semantic search, evaluation
+        frameworks and AI security. At ELCA Informatique in Zurich I have delivered three production
+        systems, described below. Before that I worked at Mercedes-Benz Mobility on
+        semantic search and fraud reasoning for collections, and at Lufthansa Industry
+        Solutions on forecasting platforms and reinforcement learning for scheduling
+        problems. I worked as a research assistant at TU Kaiserslautern on reinforcement
+        learning for adaptive glass control, in collaboration with DFKI and the University
+        of Wollongong in Australia. In total 14 years of professional experience,
+        including 11 years in machine learning and AI.
       </p>
     </section>
 
@@ -731,55 +712,37 @@
         <h2>A sovereign AI assistant for the Canton of St.&thinsp;Gallen</h2>
       </div>
 
-      <p class="lede">
-        Cantonal staff needed an AI writing and research assistant they could legally use
-        with documents classified <em>confidential</em> and <em>secret</em> — exactly the
-        material that public cloud tools such as Microsoft Copilot are not permitted to
-        touch. The answer was to build the whole thing on hardware inside the cantonal
-        police data centre, with no data leaving Swiss soil.
+      <p>
+        Cantonal staff needed a writing and research assistant they could use with documents
+        classified <em>confidential</em> and <em>secret</em>, which rules out public cloud
+        services. The platform runs on hardware inside the cantonal police data centre, with
+        no data leaving Switzerland. It is in daily use by a pilot group, with a next phase
+        sized for a much larger population of users.
       </p>
 
-      <p data-full>
-        I was involved in the architecture and solution design, and did the hands-on
-        engineering. The platform ships four purpose-built assistants — a writing
-        assistant, a research assistant, a summarisation assistant, and open chat — each
-        with its own tuned instructions and its own usage and cost tracking. It went live
-        in May 2026 and is in daily use, with a pilot group of roughly 50 accounts and a
-        next phase aimed at around 1,000 users.
-      </p>
+      <h3>What I did</h3>
+      <ul class="plain">
+        <li>Worked on the architecture and solution design, and did the hands-on engineering.</li>
+        <li>Built purpose-specific assistants for writing, research, summarisation and open
+          chat, each with its own instructions, model routing and usage tracking.</li>
+        <li>Designed the prompt architecture for the writing assistant, which has to follow
+          the official cantonal writing rules on spelling, gender-fair language and plain
+          language. Compressing the rule set into a stable system prompt removed the
+          variation that came from fetching rules on every request.</li>
+        <li>Compared three designs for supplying those rules before recommending one,
+          including the tool-calling approach, and documented why it was not chosen.</li>
+        <li>Built the evaluation suite that checks a change to the assistant's instructions
+          against the running system rather than a simplified stand-in.</li>
+        <li>Set up cost and usage reporting per assistant, so each use case can be seen
+          separately.</li>
+        <li>Put the platform configuration into version control, so a rebuild is repeatable
+          rather than a memory exercise.</li>
+        <li>Handled a live incident caused by a third-party component, including the
+          communication at project-lead level and the tests that prevent a silent recurrence.</li>
+      </ul>
 
-      <div class="metrics">
-        <div class="metric"><span class="fig">May 2026</span><span class="cap">Went live and stayed live</span></div>
-        <div class="metric"><span class="fig">4</span><span class="cap">Purpose-built assistants</span></div>
-        <div class="metric"><span class="fig">~30</span><span class="cap">Weekly active users in pilot</span></div>
-        <div class="metric"><span class="fig">20&times;</span><span class="cap">User growth the design targets</span></div>
-      </div>
-
-      <h3>The result I am most proud of</h3>
-
-      <p data-full>
-        The writing assistant has to follow roughly fifty official cantonal writing rules —
-        Swiss High German spelling, gender-fair language, date and money formats, plain-language
-        requirements. It was getting them wrong about 40% of the time, and worse, it was
-        <em>inconsistent</em>: the same request could produce a correct answer one minute and
-        a wrong one the next.
-      </p>
-
-      <p data-full>
-        I traced that to the way the system fetched the rules. It looked them up in a
-        document store on every request, and the lookup returned a slightly different set of
-        rules each time — so mandatory rules were sometimes simply invisible to the model.
-        Nobody had noticed because each individual answer looked plausible.
-      </p>
-
-      <p data-full>
-        Rather than argue for a fix from first principles, I built a controlled experiment:
-        three competing designs, eight realistic test documents each, twenty-four measured
-        runs. That produced a clear answer, including killing my own second-favourite option.
-      </p>
-
-      <div class="shift">
-        <p class="shift-title">Three designs, measured head to head</p>
+      <div class="shift" data-full>
+        <p class="shift-title">The three designs compared</p>
         <div class="scroller">
           <table class="cmp">
             <thead>
@@ -794,40 +757,10 @@
         </div>
       </div>
 
-      <p>
-        The winning design was <strong>26 times cheaper per request, 17% faster, and went
-        from following 60% of the rules to essentially all of them</strong>.<span data-full> The
-        middle option — the fashionable "give the AI tools" approach — was measurably worse
-        on both speed and cost, and I recommended against it with the data to back that up.
-        Cost per request matters here because the client is scaling from 50 to about 1,000
-        users; a 26-fold reduction is the difference between a pilot and a budget.</span>
+      <p data-full>
+        The third design was chosen. The tool-calling variant scored better than the original
+        but was slower and more expensive, so I recommended against it.
       </p>
-
-      <h3 data-full>What else I did on this project</h3>
-      <ul class="plain" data-full>
-        <li><strong>Built the quality safety net.</strong> A test suite of 61 scenarios and 23
-          reference documents with 344 individually weighted checks, so that any change to the
-          assistant's instructions is measured rather than eyeballed. It runs the real system
-          the way a user does, not a simplified stand-in.</li>
-        <li><strong>Made the rules auditable.</strong> A coverage matrix of all 27 writing rules
-          showing which were actually tested. It exposed three gaps, which I closed — two rules
-          moved from 77% and 81% compliance to 100%.</li>
-        <li><strong>Set up cost and usage reporting.</strong> Dashboards that attribute every
-          request, token and franc to a specific assistant, so the client can see which use
-          case is worth the spend. This drove a deliberate design choice in how the system
-          routes requests.</li>
-        <li><strong>Turned the configuration into code.</strong> The entire platform setup —
-          assistants, permissions, document collections, model routing — is defined in version-controlled
-          files and applied automatically, so a rebuild is repeatable instead of a memory exercise.</li>
-        <li><strong>Handled a live incident.</strong> A bug in a third-party component let one
-          user's uploaded document leak into a later request. Users reasonably read that as other
-          people seeing their files. It needed honest communication at project-lead level, an
-          immediate mitigation, and new automated tests to make sure it could not return quietly.</li>
-        <li><strong>Diagnosed a vendor-side blocker.</strong> Microsoft's own safety filter was
-          incorrectly flagging our test conversations as attacks, which silently broke the entire
-          quality-measurement pipeline. I proved the standard settings did not disable it, found the
-          one that did, and wrote a script so the next person can verify it in seconds.</li>
-      </ul>
 
       <details class="tech" data-full>
         <summary>Technical detail</summary>
@@ -933,13 +866,6 @@
         I owned most completely: roughly 232 recorded hours across 28 working days and 172
         commits.
       </p>
-
-      <div class="metrics">
-        <div class="metric"><span class="fig">215</span><span class="cap">Manuals made searchable</span></div>
-        <div class="metric"><span class="fig">6&times;</span><span class="cap">Faster answers after re-architecture</span></div>
-        <div class="metric"><span class="fig">0.95</span><span class="cap">Right-source hit rate, up from 0.70</span></div>
-        <div class="metric"><span class="fig">3</span><span class="cap">Languages served</span></div>
-      </div>
 
       <h3>Making it fast and accurate enough to trust</h3>
 
@@ -1180,13 +1106,6 @@
         instructions, or run up an inference bill.
       </p>
 
-      <div class="metrics">
-        <div class="metric"><span class="fig">9</span><span class="cap">Layers of defence</span></div>
-        <div class="metric"><span class="fig">177</span><span class="cap">Automated tests</span></div>
-        <div class="metric"><span class="fig">37</span><span class="cap">Documented attack cases</span></div>
-        <div class="metric"><span class="fig">10/15</span><span class="cap">Pentest findings closed</span></div>
-      </div>
-
       <h3>What I built</h3>
       <ul class="plain">
         <li><strong>A nine-layer defence pipeline</strong>, documented stage by stage — including, for
@@ -1399,11 +1318,11 @@
         <p class="role-meta">May 2015 – Oct 2019 · Kaiserslautern</p>
         <h4>Research Associate — TU Kaiserslautern, LivingLab SmartOfficeSpace</h4>
         <p data-full>
-          Doctoral-level research using reinforcement learning to control adaptive glass
-          transparency, balancing daylight, glare and thermal comfort in real offices. Built the
+          Developed reinforcement learning models to control adaptive glass transparency,
+          balancing daylight, glare and thermal comfort in real offices. Built the daylight
           simulation environment that generated the training data, ran large-scale
-          hyperparameter optimisation, and collaborated with the University of Wollongong in
-          Australia. Six peer-reviewed publications.
+          hyperparameter optimisation with Ray Tune, and collaborated with the University of
+          Wollongong in Australia. Six peer-reviewed publications.
         </p>
       </div>
 

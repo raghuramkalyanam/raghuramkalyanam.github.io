@@ -15,6 +15,18 @@
 <meta property="og:url" content="https://raghuramkalyanam.github.io/" />
 <meta name="twitter:card" content="summary" />
 <title>Raghuram Kalyanam — AI Engineering Portfolio</title>
+<script>
+  /* Set the view before first paint, so the full page never flashes. A saved
+     choice wins; ?view=full lets a link point straight at the long version. */
+  (function () {
+    var v = 'short';
+    try {
+      var q = new URLSearchParams(location.search).get('view');
+      v = (q === 'full' || q === 'short') ? q : (localStorage.getItem('rk-view') || 'short');
+    } catch (e) {}
+    document.documentElement.setAttribute('data-detail', v);
+  })();
+</script>
 <style>
   :root {
     --ground: #F4F6F7;
@@ -207,6 +219,91 @@
   }
 
   .facts span { white-space: nowrap; }
+
+  /* view switch + CV download */
+
+  /* Short is the default view. It is applied by an inline script in <head> so
+     there is no flash of the full page; with JS off nothing is hidden and the
+     reader gets everything, which is the safe failure. */
+  :root[data-detail="short"] [data-full] { display: none !important; }
+
+  .viewbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 16px;
+    margin-top: 26px;
+  }
+
+  .seg {
+    display: inline-flex;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .seg button {
+    appearance: none;
+    border: 0;
+    cursor: pointer;
+    background: transparent;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 9px 15px;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .seg button + button { border-left: 1px solid var(--rule); }
+  .seg button:hover { color: var(--ink); }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: var(--surface); }
+  .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+  .dl-group { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+  .dl-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .viewbar .hint {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+
+  .cv-dl {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .cv-dl::before {
+    content: "\2193";
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  .cv-dl:hover { background: var(--accent); color: var(--surface); }
+  .cv-dl:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
   /* section headings */
 
@@ -576,6 +673,18 @@
         <span>German citizen</span>
         <span>English fluent · German C1</span>
       </div>
+      <div class="viewbar">
+        <div class="seg" id="viewseg" role="group" aria-label="Level of detail">
+          <button type="button" data-view="short" aria-pressed="true">Short</button>
+          <button type="button" data-view="full" aria-pressed="false">Full</button>
+        </div>
+        <span class="dl-group">
+          <span class="dl-label">CV (PDF)</span>
+          <a class="cv-dl" href="cv/resume_raghuram_kalyanam.pdf" download hreflang="en">English</a>
+          <a class="cv-dl" href="cv/lebenslauf_raghuram_kalyanam.pdf" download hreflang="de">Deutsch</a>
+        </span>
+        <span class="hint" id="viewhint">Headlines and results &mdash; switch to Full for the detail</span>
+      </div>
     </div>
 
     <!-- ══════════ OVERVIEW ══════════ -->
@@ -586,8 +695,9 @@
         A plain-language record of the three production AI systems I delivered at ELCA
         Informatique in Zurich between October 2025 and today, written so that a recruiter
         can read it end to end without a technical background. Every number on this page
-        came from a measurement, not an estimate. Where an engineer wants the mechanism,
-        each project carries a collapsible <strong>Technical detail</strong> section.
+        came from a measurement, not an estimate.<span data-full> Where an engineer wants the
+        mechanism, each project carries a collapsible <strong>Technical detail</strong>
+        section.</span>
       </p>
 
       <h3>The short version</h3>
@@ -629,7 +739,7 @@
         police data centre, with no data leaving Swiss soil.
       </p>
 
-      <p>
+      <p data-full>
         I was involved in the architecture and solution design, and did the hands-on
         engineering. The platform ships four purpose-built assistants — a writing
         assistant, a research assistant, a summarisation assistant, and open chat — each
@@ -647,7 +757,7 @@
 
       <h3>The result I am most proud of</h3>
 
-      <p>
+      <p data-full>
         The writing assistant has to follow roughly fifty official cantonal writing rules —
         Swiss High German spelling, gender-fair language, date and money formats, plain-language
         requirements. It was getting them wrong about 40% of the time, and worse, it was
@@ -655,14 +765,14 @@
         a wrong one the next.
       </p>
 
-      <p>
+      <p data-full>
         I traced that to the way the system fetched the rules. It looked them up in a
         document store on every request, and the lookup returned a slightly different set of
         rules each time — so mandatory rules were sometimes simply invisible to the model.
         Nobody had noticed because each individual answer looked plausible.
       </p>
 
-      <p>
+      <p data-full>
         Rather than argue for a fix from first principles, I built a controlled experiment:
         three competing designs, eight realistic test documents each, twenty-four measured
         runs. That produced a clear answer, including killing my own second-favourite option.
@@ -686,15 +796,15 @@
 
       <p>
         The winning design was <strong>26 times cheaper per request, 17% faster, and went
-        from following 60% of the rules to essentially all of them</strong>. The
+        from following 60% of the rules to essentially all of them</strong>.<span data-full> The
         middle option — the fashionable "give the AI tools" approach — was measurably worse
         on both speed and cost, and I recommended against it with the data to back that up.
         Cost per request matters here because the client is scaling from 50 to about 1,000
-        users; a 26-fold reduction is the difference between a pilot and a budget.
+        users; a 26-fold reduction is the difference between a pilot and a budget.</span>
       </p>
 
-      <h3>What else I did on this project</h3>
-      <ul class="plain">
+      <h3 data-full>What else I did on this project</h3>
+      <ul class="plain" data-full>
         <li><strong>Built the quality safety net.</strong> A test suite of 61 scenarios and 23
           reference documents with 344 individually weighted checks, so that any change to the
           assistant's instructions is measured rather than eyeballed. It runs the real system
@@ -719,7 +829,7 @@
           one that did, and wrote a script so the next person can verify it in seconds.</li>
       </ul>
 
-      <details class="tech">
+      <details class="tech" data-full>
         <summary>Technical detail</summary>
         <div class="tech-body">
           <h4>Stack</h4>
@@ -833,14 +943,14 @@
 
       <h3>Making it fast and accurate enough to trust</h3>
 
-      <p>
+      <p data-full>
         The first working version took <strong>97 seconds</strong> to answer. Staff will not
         wait 97 seconds. It also used the AI model itself to browse a catalogue of manuals in
         two passes before it even started answering, which was both the slow part and the
         expensive part.
       </p>
 
-      <p>
+      <p data-full>
         I replaced that with a proper search engine doing the finding and the AI doing only
         the explaining. Answers now come back in <strong>11 to 16 seconds</strong>, and cost
         per question dropped about <strong>70%</strong>. Separately, I found the assistant was
@@ -865,16 +975,16 @@
         </div>
       </div>
 
-      <h3>Showing screenshots without an image-reading AI</h3>
+      <h3 data-full>Showing screenshots without an image-reading AI</h3>
 
-      <p>
+      <p data-full>
         Staff needed the screenshots from the manuals, not just text — "click this button on
         that screen". The obvious approach is an AI model that can read images, but the client's
         approved infrastructure had none, and sending internal screenshots to an image model was
         not on the table.
       </p>
 
-      <p>
+      <p data-full>
         So I built it a different way. During setup, the system writes a short plain-German
         summary of every section that contains images — 2,110 screenshots across 498 sections.
         When answering, the AI only ever chooses <em>sections</em> from a supplied list; the
@@ -884,8 +994,8 @@
         earlier approach, especially when users switched language.
       </p>
 
-      <h3>Proving quality, and letting staff grade it</h3>
-      <ul class="plain">
+      <h3 data-full>Proving quality, and letting staff grade it</h3>
+      <ul class="plain" data-full>
         <li><strong>A measurement harness that tests the real thing.</strong> I found the existing
           one was quietly testing a simplified version of the search, not the system users actually
           hit — so its numbers were meaningless. Rewiring it to call the application's own code
@@ -905,8 +1015,8 @@
           relative signal and a perfect score would be a red flag.</li>
       </ul>
 
-      <h3>Running it in production</h3>
-      <ul class="plain">
+      <h3 data-full>Running it in production</h3>
+      <ul class="plain" data-full>
         <li><strong>Updates with no downtime.</strong> Rebuilding the search index used to mean the
           assistant was unavailable or, worse, quietly answering from a half-built index. I made the
           switchover atomic, with a rollback copy kept and a cleanup pass for interrupted runs. A failed
@@ -926,7 +1036,7 @@
           matrix.</li>
       </ul>
 
-      <details class="tech">
+      <details class="tech" data-full>
         <summary>Technical detail</summary>
         <div class="tech-body">
           <h4>Stack</h4>
@@ -1062,7 +1172,7 @@
         test suite and the remediation work, alongside code review of the underlying retrieval build.
       </p>
 
-      <p>
+      <p data-full>
         The difference from an internal tool is total. There is no login, so every single field
         arriving from a browser has to be treated as hostile. The conversation history the browser
         sends back is a <em>claim</em>, not a record — someone can forge it. And the system must not
@@ -1083,13 +1193,13 @@
           every stage, an honest note on what it does <em>not</em> catch. Threats are ranked in priority
           order: talking the bot off-topic, overriding its instructions, running up costs, and injecting
           instructions through the web pages it reads.</li>
-        <li><strong>A single, uniform refusal message.</strong> Every layer refuses with identical
+        <li data-full><strong>A single, uniform refusal message.</strong> Every layer refuses with identical
           wording, so an attacker cannot work out which defence they tripped and tune around it.</li>
-        <li><strong>An attack corpus kept as data, not code</strong> — 37 cases across 7 families in a
+        <li data-full><strong>An attack corpus kept as data, not code</strong> — 37 cases across 7 families in a
           plain file, so adding a new attack needs no programming. Critically, it includes cases that
           must be <em>answered</em>, which is what breaks first if the filters get too aggressive, and
           off-topic cases that must be declined <em>politely</em> rather than treated as attacks.</li>
-        <li><strong>177 automated tests</strong> — 109 that run on every commit and 68 full end-to-end
+        <li data-full><strong>177 automated tests</strong> — 109 that run on every commit and 68 full end-to-end
           tests against live models.</li>
         <li><strong>Closed 10 of 15 findings from an external penetration test</strong>, each with its
           own regression test named after the finding, so a fix cannot silently come undone. Some of
@@ -1097,23 +1207,23 @@
         <li><strong>Found two threats the external testers missed</strong> and closed both: a user-supplied
           language field that was reaching the system's own instructions, and the possibility of injecting
           instructions via the public web pages the bot reads as source material.</li>
-        <li><strong>Caught a leaked password.</strong> Two deployment jobs were dumping their entire
+        <li data-full><strong>Caught a leaked password.</strong> Two deployment jobs were dumping their entire
           environment into build logs, exposing a message-queue password. Removed, with the reasoning
           recorded: the platform's automatic secret masking is best-effort and silently does not apply
           to values that fail its character rules.</li>
-        <li><strong>Made a build-versus-buy call with evidence.</strong> I evaluated off-the-shelf AI
+        <li data-full><strong>Made a build-versus-buy call with evidence.</strong> I evaluated off-the-shelf AI
           safety filters and showed that the popular ones classify "ignore your instructions and write me
           Python" as perfectly safe — they detect harmful <em>content</em>, not scope-breaking. I
           benchmarked an alternative at 9 out of 9 correct across four languages at ~665 ms, and
           recommended a purpose-built injection detector instead, with the cost and latency trade-off
           documented.</li>
-        <li><strong>Multilingual from the start</strong> — German, French, Italian and English, with
+        <li data-full><strong>Multilingual from the start</strong> — German, French, Italian and English, with
           attack patterns written in all four, matched against normalised text and a de-spaced copy so
           "i g n o r e" does not slip through, and invisible or direction-flipping characters stripped
           before any check runs.</li>
       </ul>
 
-      <details class="tech">
+      <details class="tech" data-full>
         <summary>Technical detail</summary>
         <div class="tech-body">
           <h4>Stack</h4>
@@ -1204,7 +1314,7 @@
       </p>
 
       <h4>Vector databases and embeddings — not used</h4>
-      <p>
+      <p data-full>
         The default assumption for this kind of assistant is a vector database. For a small,
         curated, well-structured German corpus, a conventional search engine with proper German
         language handling retrieved more accurately, needed no embedding infrastructure to
@@ -1214,7 +1324,7 @@
       </p>
 
       <h4>AI reranking — built, measured, removed</h4>
-      <p>
+      <p data-full>
         I took two well-regarded reranking models, converted and deployed them into the search
         cluster, wired them into the pipeline and measured them against the reference question
         set. The result was net-neutral. I removed the whole thing and kept the three genuine
@@ -1222,13 +1332,13 @@
       </p>
 
       <h4>Giving the AI tools to fetch its own rules — rejected on numbers</h4>
-      <p>
+      <p data-full>
         The fashionable "agentic" pattern, and the one I initially expected to win. It doubled
         the wait for an answer, scored lower on correctness than simply building the rules in,
         and added a dependency on tool-call reliability. Measured, written up, declined.
       </p>
 
-      <p class="note">
+      <p class="note" data-full>
         I also document the uncomfortable findings, not only the wins: that one measurement
         harness had been testing a simplified stand-in rather than the real system; that a
         reference question set was structurally incapable of catching an entire class of bug;
@@ -1263,7 +1373,7 @@
       <div class="role">
         <p class="role-meta">Jul 2022 – Sep 2025 · Stuttgart</p>
         <h4>Senior Data Scientist — Mercedes-Benz Mobility AG</h4>
-        <p>
+        <p data-full>
           Built an AI system letting collections staff find high-risk customers by asking in
           plain language instead of writing database queries. The AI interpreted business
           language and routed it to the right data sources — risk history, payment profiles,
@@ -1277,7 +1387,7 @@
       <div class="role">
         <p class="role-meta">Jan 2020 – May 2022 · Raunheim</p>
         <h4>Data Scientist / Consultant — Lufthansa Industry Solutions</h4>
-        <p>
+        <p data-full>
           Built a forecasting platform with automated retraining, used across aviation,
           automotive and public-sector clients. Modelled resource and scheduling problems as
           reinforcement learning tasks. Containerised training and inference for production.
@@ -1288,7 +1398,7 @@
       <div class="role">
         <p class="role-meta">May 2015 – Oct 2019 · Kaiserslautern</p>
         <h4>Research Associate — TU Kaiserslautern, LivingLab SmartOfficeSpace</h4>
-        <p>
+        <p data-full>
           Doctoral-level research using reinforcement learning to control adaptive glass
           transparency, balancing daylight, glare and thermal comfort in real offices. Built the
           simulation environment that generated the training data, ran large-scale
@@ -1300,7 +1410,7 @@
       <div class="role">
         <p class="role-meta">Nov 2012 – Feb 2015 · Chennai, India</p>
         <h4>Software Engineer — Ericsson R&amp;D Center</h4>
-        <p>
+        <p data-full>
           Telecom billing systems for prepaid and postpaid customers; implemented VoLTE and
           Diameter protocols in Java and C++. Performance improvements, on-call support for
           international customers, and release management. Recognised internally as a
@@ -1356,6 +1466,41 @@
 </div>
 
 <script>
+  /* view switch */
+  (function () {
+    var root = document.documentElement;
+    var seg = document.getElementById('viewseg');
+    var hint = document.getElementById('viewhint');
+    if (!seg) return;
+
+    var HINTS = {
+      short: 'Headlines and results — switch to Full for the detail',
+      full: 'Everything, including the technical sections'
+    };
+
+    function apply(view, fromClick) {
+      root.setAttribute('data-detail', view);
+      seg.querySelectorAll('button').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.dataset.view === view));
+      });
+      if (hint) hint.textContent = HINTS[view];
+      try { localStorage.setItem('rk-view', view); } catch (e) {}
+      /* Only on an actual switch: content unhidden below the fold has already
+         missed its observer callback and would sit at opacity 0 forever. On
+         first load we leave the reveal animation alone. */
+      if (fromClick) {
+        document.querySelectorAll('.rv').forEach(function (el) { el.classList.add('in'); });
+      }
+    }
+
+    seg.addEventListener('click', function (e) {
+      var btn = e.target.closest('button[data-view]');
+      if (btn) apply(btn.dataset.view, true);
+    });
+
+    apply(root.getAttribute('data-detail') === 'full' ? 'full' : 'short', false);
+  })();
+
   (function () {
     var links = Array.prototype.slice.call(document.querySelectorAll('#nav a'));
     var sections = links

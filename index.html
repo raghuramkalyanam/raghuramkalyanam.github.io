@@ -207,17 +207,29 @@
     text-wrap: balance;
   }
 
+  /* Sits below .masthead-row, not inside .masthead-main, so it gets the full column width
+     and the five items stay on one line. The mono face is wide, so the size and gap are
+     trimmed to buy room -- German runs about 13% longer than English and is the binding
+     case. Still wrap rather than nowrap: overflowing the container is a worse failure than
+     a second line on a narrow viewport. */
   .facts {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px 28px;
+    gap: 6px 18px;
+    margin-top: 14px;
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 11px;
     color: var(--muted);
-    letter-spacing: 0.02em;
+    letter-spacing: 0;
   }
 
   .facts span { white-space: nowrap; }
+
+  /* German runs about 13% longer than English ("Deutscher Staatsbürger" against "German
+     citizen"), enough to push the row onto a second line at the same size. Trimmed a
+     fraction rather than abbreviating the wording, since a reader only ever sees one
+     language and will not notice half a pixel. */
+  :root[lang="de"] .facts { font-size: 10.5px; gap: 6px 15px; }
 
   /* masthead layout + language switch + CV download */
 
@@ -568,6 +580,7 @@
     .rail-nav a.on { border-left-color: transparent; border-bottom-color: var(--accent); }
     .rail-foot { display: none; }
     main { padding-top: 32px; }
+    .facts { font-size: 12px; gap: 6px 20px; }
   }
 </style>
 </head>
@@ -608,13 +621,6 @@
       <div class="masthead-main">
           <p class="eyebrow" data-en="Senior Data Scientist / AI Engineer · Zurich" data-de="Senior Data Scientist / AI Engineer · Zürich">Senior Data Scientist / AI Engineer · Zurich</p>
           <h1>Raghuram Kalyanam</h1>
-          <div class="facts">
-            <span data-en="14 years professional" data-de="14 Jahre Berufserfahrung">14 years professional</span>
-            <span data-en="11 years ML &amp; AI" data-de="11 Jahre ML &amp; AI">11 years ML &amp; AI</span>
-            <span data-en="M.Sc. Mathematics &amp; Computing" data-de="M.Sc. Mathematik &amp; Computing">M.Sc. Mathematics &amp; Computing</span>
-            <span data-en="German citizen" data-de="Deutscher Staatsbürger">German citizen</span>
-            <span data-en="English fluent · German C1" data-de="Englisch fließend · Deutsch C1">English fluent · German C1</span>
-          </div>
         </div>
         <div class="masthead-controls">
           <div class="seg" id="langseg" role="group" aria-label="Language">
@@ -624,6 +630,13 @@
           <a class="cv-dl" id="cvdl" href="cv/resume_raghuram_kalyanam.pdf" download hreflang="en"
             data-cv-en="cv/resume_raghuram_kalyanam.pdf" data-cv-de="cv/lebenslauf_raghuram_kalyanam.pdf" data-en="Download CV" data-de="Lebenslauf">Download CV</a>
         </div>
+      </div>
+      <div class="facts">
+        <span data-en="14 years professional" data-de="14 Jahre Berufserfahrung">14 years professional</span>
+        <span data-en="11 years ML &amp; AI" data-de="11 Jahre ML &amp; AI">11 years ML &amp; AI</span>
+        <span data-en="M.Sc. Mathematics &amp; Computing" data-de="M.Sc. Mathematik &amp; Computing">M.Sc. Mathematics &amp; Computing</span>
+        <span data-en="German citizen" data-de="Deutscher Staatsbürger">German citizen</span>
+        <span data-en="English fluent · German C1" data-de="Englisch fließend · Deutsch C1">English fluent · German C1</span>
       </div>
     </div>
 

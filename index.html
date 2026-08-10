@@ -178,7 +178,15 @@
 
   /* masthead */
 
-  .masthead { border-bottom: 3px solid var(--ink); padding-bottom: 22px; margin-bottom: 12px; }
+  /* The masthead carries .band for its rule and spacing, but must not inherit the 68ch
+     reading measure: portrait + name block + controls exceeds it, and flex-wrap would drop
+     the language switch and CV button onto their own line instead of holding them top right. */
+  .masthead {
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 22px;
+    margin-bottom: 12px;
+    max-width: none;
+  }
 
   .eyebrow {
     font-family: var(--mono);

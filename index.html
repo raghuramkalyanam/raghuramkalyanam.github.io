@@ -318,9 +318,26 @@
   .cv-dl:hover { background: var(--accent); color: var(--surface); }
   .cv-dl:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-  @media (max-width: 640px) {
+  @media (max-width: 760px) {
+    /* Stacking the masthead has a trap: .masthead-main carries flex: 1 1 340px, and
+       flex-basis applies to the MAIN axis. The moment this becomes a column, 340px stops
+       meaning "at least this wide" and starts meaning "at least this tall", so the name
+       block reserved 340px of height for two lines of text -- the large empty gap between
+       the name and the rule. Reset the basis here; the 340px was only ever a width intent. */
     .masthead-row { flex-direction: column; }
+    .masthead-main { flex: 0 0 auto; }
     .masthead-controls { padding-top: 8px; }
+
+    /* Name before photo when stacked. On the wide layout the eye reads the name first
+       because it sits left; stacked, DOM order decides, and the portrait is first in the
+       markup for the wide case. */
+    .masthead-main { order: 1; }
+    .portrait { order: 2; width: 76px; height: 76px; }
+    .masthead-controls { order: 3; }
+
+    /* Breakpoint raised from 640 to 760: between the two the row was still horizontal while
+       the shell had already gone single-column, squeezing portrait, name and controls into
+       one cramped line. */
   }
 
   /* section headings */
@@ -581,6 +598,18 @@
     .rail-foot { display: none; }
     main { padding-top: 32px; }
     .facts { font-size: 12px; gap: 6px 20px; }
+  }
+
+  @media (max-width: 560px) {
+    /* The masthead is the tallest block on a phone, and the display size of the name is what
+       makes it so -- at this width it wraps to two or three lines. */
+    .shell { padding: 0 16px; }
+    .masthead { padding-bottom: 16px; margin-bottom: 10px; }
+    .masthead-row { gap: 12px 20px; }
+    .facts { font-size: 11px; gap: 4px 14px; margin-top: 10px; }
+    /* Long single tokens -- the e-mail address, the site URL -- overflow rather than wrap,
+       which is what puts a horizontal scrollbar on a phone. */
+    a[href^="mailto"], a[href^="http"] { overflow-wrap: anywhere; }
   }
 </style>
 </head>

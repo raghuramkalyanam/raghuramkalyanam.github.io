@@ -1306,5 +1306,39 @@
     }
   })();
 </script>
+
+<!-- Visit counting.
+     Cookieless and aggregate: page, referrer, country, browser. No cookie, no identifier, no
+     cross-site tracking, so under GDPR and the revised Swiss FADP it needs no consent banner
+     and stores no personal data. That matters here beyond compliance -- this CV sells DPIA
+     and AI-governance work, and a recruiter who opens devtools should find nothing that
+     contradicts it.
+
+     Loaded rather than written as a plain <script data-goatcounter> tag, because the default
+     tag records the bare path and the ?a= tag is the whole point -- the path callback below
+     carries it through so each application appears as its own row. Clearing GOATCOUNTER
+     disables counting entirely without removing anything else.
+
+     What it gives you: each application's CV carries a tagged link
+     (?a=neho-ai-product-engineer), so the dashboard shows which application produced a visit
+     -- without identifying who. -->
+<script>
+  (function () {
+    var GOATCOUNTER = "https://raghuram.goatcounter.com/count";
+    if (!GOATCOUNTER) return;
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = "https://gc.zgo.at/count.js";
+    s.setAttribute("data-goatcounter", GOATCOUNTER);
+    // Report the ?a= tag as the path so applications are distinguishable in the dashboard.
+    window.goatcounter = {
+      path: function (p) {
+        var tag = new URLSearchParams(location.search).get("a");
+        return tag ? p + "?a=" + tag : p;
+      },
+    };
+    document.head.appendChild(s);
+  })();
+</script>
 </body>
 </html>
